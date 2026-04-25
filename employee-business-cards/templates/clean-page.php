@@ -17,7 +17,12 @@ EBC_Assets::enqueue_public_assets();
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<?php wp_head(); ?>
+<?php
+if ( ! current_theme_supports( 'title-tag' ) ) {
+	echo '<title>' . esc_html( wp_get_document_title() ) . '</title>';
+}
+wp_head();
+?>
 </head>
 <body <?php body_class( 'ebc-clean-page' ); ?>>
 <main class="ebc-clean-main" id="ebc-content">

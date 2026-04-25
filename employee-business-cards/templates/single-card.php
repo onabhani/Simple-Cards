@@ -137,18 +137,18 @@ $svg_kses = array(
 		<?php if ( $linkedin || $twitter || $instagram ) : ?>
 			<div class="ebc-social-icons">
 				<?php if ( $linkedin ) : ?>
-					<a class="ebc-social ebc-social-linkedin" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-						<?php echo wp_kses( ebc_get_icon_svg( 'linkedin', array( 'class' => 'ebc-social-svg', 'aria-label' => 'LinkedIn' ) ), $svg_kses ); ?>
+					<a class="ebc-social ebc-social-linkedin" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr__( 'LinkedIn', 'employee-business-cards' ); ?>">
+						<?php echo wp_kses( ebc_get_icon_svg( 'linkedin', array( 'class' => 'ebc-social-svg', 'aria-label' => '' ) ), $svg_kses ); ?>
 					</a>
 				<?php endif; ?>
 				<?php if ( $twitter ) : ?>
-					<a class="ebc-social ebc-social-twitter" href="<?php echo esc_url( $twitter ); ?>" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter">
-						<?php echo wp_kses( ebc_get_icon_svg( 'twitter', array( 'class' => 'ebc-social-svg', 'aria-label' => 'X / Twitter' ) ), $svg_kses ); ?>
+					<a class="ebc-social ebc-social-twitter" href="<?php echo esc_url( $twitter ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr__( 'X / Twitter', 'employee-business-cards' ); ?>">
+						<?php echo wp_kses( ebc_get_icon_svg( 'twitter', array( 'class' => 'ebc-social-svg', 'aria-label' => '' ) ), $svg_kses ); ?>
 					</a>
 				<?php endif; ?>
 				<?php if ( $instagram ) : ?>
-					<a class="ebc-social ebc-social-instagram" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-						<?php echo wp_kses( ebc_get_icon_svg( 'instagram', array( 'class' => 'ebc-social-svg', 'aria-label' => 'Instagram' ) ), $svg_kses ); ?>
+					<a class="ebc-social ebc-social-instagram" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer" aria-label="<?php echo esc_attr__( 'Instagram', 'employee-business-cards' ); ?>">
+						<?php echo wp_kses( ebc_get_icon_svg( 'instagram', array( 'class' => 'ebc-social-svg', 'aria-label' => '' ) ), $svg_kses ); ?>
 					</a>
 				<?php endif; ?>
 			</div>

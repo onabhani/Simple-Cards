@@ -206,47 +206,89 @@ function ebc_get_local_qr_url( string $card_url, array $settings ): string {
 		return '';
 	}
 
-	$lock_key = 'ebc_qr_fetch_' . md5( $card_url );
-	if ( false === wp_cache_add( $lock_key, 1, 'ebc', 30 ) ) {
+	$lock_key       = 'ebc_qr_fetch_' . md5( $card_url );
+	$use_obj_cache  = function_exists( 'wp_using_ext_object_cache' ) && wp_using_ext_object_cache();
+	$lock_acquired  = false;
+
+	if ( $use_obj_cache ) {
+		$lock_acquired = (bool) wp_cache_add( $lock_key, 1, 'ebc', 30 );
+	} else {
+		if ( false === get_transient( $lock_key ) ) {
+			set_transient( $lock_key, 1, 30 );
+			$lock_acquired = true;
+		}
+	}
+
+	if ( ! $lock_acquired ) {
 		return '';
 	}
+
+	$release_lock = static function () use ( $lock_key, $use_obj_cache ): void {
+		if ( $use_obj_cache ) {
+			wp_cache_delete( $lock_key, 'ebc' );
+		} else {
+			delete_transient( $lock_key );
+		}
+	};
 
 	$remote_qr = str_replace( '{url}', rawurlencode( $card_url ), $template );
 	$response  = wp_remote_get( $remote_qr, array( 'timeout' => 5 ) );
 
 	if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
-		wp_cache_delete( $lock_key, 'ebc' );
+		$release_lock();
+		return '';
+	}
+
+	$content_type = (string) wp_remote_retrieve_header( $response, 'content-type' );
+	if ( '' !== $content_type && 0 !== stripos( $content_type, 'image/' ) ) {
+		$release_lock();
 		return '';
 	}
 
 	$body = wp_remote_retrieve_body( $response );
 	if ( empty( $body ) ) {
-		wp_cache_delete( $lock_key, 'ebc' );
+		$release_lock();
 		return '';
+	}
+
+	if ( function_exists( 'getimagesizefromstring' ) ) {
+		$info = @getimagesizefromstring( $body );
+		if ( false === $info ) {
+			$release_lock();
+			return '';
+		}
 	}
 
 	$tmp_path = $file_path . '.' . wp_generate_password( 8, false ) . '.tmp';
 	$written  = file_put_contents( $tmp_path, $body );
 	if ( false === $written ) {
-		wp_cache_delete( $lock_key, 'ebc' );
+		$release_lock();
 		return '';
 	}
 
 	if ( ! @rename( $tmp_path, $file_path ) ) {
 		@unlink( $tmp_path );
-		wp_cache_delete( $lock_key, 'ebc' );
+		$release_lock();
 		return '';
 	}
 
-	wp_cache_delete( $lock_key, 'ebc' );
+	$release_lock();
 	return $file_url;
 }
 
 /**
- * Return inline SVG markup for a card icon.
+ * Return icon markup for a card icon.
  *
- * @param string $name   Icon slug.
- * @param array  $attrs  Optional attributes (class, width, height, aria-label).
+ * For built-in functional icons (phone/whatsapp/email/website/qr/share/download/close),
+ * returns an inline <svg> using currentColor. For brand icons (linkedin/twitter/instagram),
+ * returns an <img> tag pointing to a bundled SVG file (preserves brand color/gradient).
+ *
+ * If `aria-label` is set in $attrs (even empty string), that exact value is used —
+ * pass `'aria-label' => ''` to mark the icon decorative. If the key is omitted,
+ * a sensible default label is generated.
+ *
+ * @param string $name  Icon slug.
+ * @param array  $attrs Optional attributes (class, aria-label).
  * @return string
  */
 function ebc_get_icon_svg( string $name, array $attrs = array() ): string {
@@ -257,12 +299,22 @@ function ebc_get_icon_svg( string $name, array $attrs = array() ): string {
 	);
 	static $paths = null;
 
-	$class      = isset( $attrs['class'] ) ? (string) $attrs['class'] : 'ebc-icon';
-	$aria_label = isset( $attrs['aria-label'] ) ? (string) $attrs['aria-label'] : '';
+	$class           = isset( $attrs['class'] ) ? (string) $attrs['class'] : 'ebc-icon';
+	$has_aria_label  = array_key_exists( 'aria-label', $attrs );
+	$aria_label      = $has_aria_label ? (string) $attrs['aria-label'] : '';
 
 	if ( isset( $brand[ $name ] ) ) {
 		$url = EBC_URL . 'assets/icons/' . $brand[ $name ];
-		$alt = '' !== $aria_label ? $aria_label : ucfirst( $name );
+		if ( $has_aria_label ) {
+			$alt = $aria_label;
+		} else {
+			$labels = array(
+				'linkedin'  => __( 'LinkedIn', 'employee-business-cards' ),
+				'twitter'   => __( 'X / Twitter', 'employee-business-cards' ),
+				'instagram' => __( 'Instagram', 'employee-business-cards' ),
+			);
+			$alt = $labels[ $name ];
+		}
 		return sprintf(
 			'<img class="%s" src="%s" alt="%s" loading="lazy" decoding="async" width="24" height="24" />',
 			esc_attr( $class ),
@@ -288,7 +340,11 @@ function ebc_get_icon_svg( string $name, array $attrs = array() ): string {
 		return '';
 	}
 
-	$aria_hidden = '' === $aria_label ? ' aria-hidden="true" focusable="false"' : ' role="img" aria-label="' . esc_attr( $aria_label ) . '"';
+	if ( '' === $aria_label ) {
+		$a11y = ' aria-hidden="true" focusable="false"';
+	} else {
+		$a11y = ' role="img" aria-label="' . esc_attr( $aria_label ) . '"';
+	}
 
-	return '<svg class="' . esc_attr( $class ) . '" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"' . $aria_hidden . '>' . $paths[ $name ] . '</svg>';
+	return '<svg class="' . esc_attr( $class ) . '" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"' . $a11y . '>' . $paths[ $name ] . '</svg>';
 }
