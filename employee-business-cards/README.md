@@ -24,8 +24,11 @@ Go to **Employee Cards → Settings** and configure:
 
 - Default company name
 - Default website URL
-- Enable QR code
-- QR code provider URL template (`{url}` placeholder required)
+- Enable QR code (disabled by default)
+- QR provider type:
+  - **Local (server-side cached)**: plugin fetches and stores QR images in uploads and serves local URLs.
+  - **External provider URL**: plugin uses a direct external image URL pattern.
+- QR code provider URL template (used only for External mode and must include `{url}`)
 - Primary color
 - Button style (rounded/square)
 
@@ -65,4 +68,4 @@ Only published `employee_card` posts are valid.
 
 - Uses secure sanitization, escaping, capability checks, and nonce verification.
 - Rewrite rules are flushed only on plugin activation/deactivation.
-- Public CSS and admin assets are loaded only when needed.
+- Public CSS/JS and admin assets are loaded only when needed.

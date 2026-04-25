@@ -43,8 +43,8 @@ class EBC_Settings {
 	public function register_settings_page(): void {
 		add_submenu_page(
 			'edit.php?post_type=employee_card',
-			esc_html__( 'Employee Card Settings', EBC_TEXT_DOMAIN ),
-			esc_html__( 'Settings', EBC_TEXT_DOMAIN ),
+			esc_html__( 'Employee Card Settings', 'employee-business-cards' ),
+			esc_html__( 'Settings', 'employee-business-cards' ),
 			'manage_options',
 			'ebc-settings',
 			array( $this, 'render_settings_page' )
@@ -61,17 +61,18 @@ class EBC_Settings {
 
 		add_settings_section(
 			'ebc_main_section',
-			esc_html__( 'General Settings', EBC_TEXT_DOMAIN ),
+			esc_html__( 'General Settings', 'employee-business-cards' ),
 			'__return_false',
 			'ebc-settings'
 		);
 
-		$this->add_field( 'default_company_name', esc_html__( 'Default company name', EBC_TEXT_DOMAIN ), 'text' );
-		$this->add_field( 'default_website_url', esc_html__( 'Default website URL', EBC_TEXT_DOMAIN ), 'url' );
-		$this->add_field( 'enable_qr_code', esc_html__( 'Enable QR code', EBC_TEXT_DOMAIN ), 'checkbox' );
-		$this->add_field( 'qr_provider_template', esc_html__( 'QR code provider URL template', EBC_TEXT_DOMAIN ), 'text' );
-		$this->add_field( 'primary_color', esc_html__( 'Primary color', EBC_TEXT_DOMAIN ), 'color' );
-		$this->add_field( 'button_style', esc_html__( 'Button style', EBC_TEXT_DOMAIN ), 'select' );
+		$this->add_field( 'default_company_name', esc_html__( 'Default company name', 'employee-business-cards' ), 'text' );
+		$this->add_field( 'default_website_url', esc_html__( 'Default website URL', 'employee-business-cards' ), 'url' );
+		$this->add_field( 'enable_qr_code', esc_html__( 'Enable QR code', 'employee-business-cards' ), 'checkbox' );
+		$this->add_field( 'qr_provider_type', esc_html__( 'QR provider type', 'employee-business-cards' ), 'provider_type' );
+		$this->add_field( 'qr_provider_template', esc_html__( 'QR code provider URL template', 'employee-business-cards' ), 'text' );
+		$this->add_field( 'primary_color', esc_html__( 'Primary color', 'employee-business-cards' ), 'color' );
+		$this->add_field( 'button_style', esc_html__( 'Button style', 'employee-business-cards' ), 'select' );
 	}
 
 	/**
@@ -105,18 +106,28 @@ class EBC_Settings {
 
 		switch ( $type ) {
 			case 'checkbox':
-				echo '<label><input type="checkbox" name="ebc_settings[' . esc_attr( $key ) . ']" value="1" ' . checked( (int) $value, 1, false ) . ' /> ' . esc_html__( 'Yes', EBC_TEXT_DOMAIN ) . '</label>';
+				echo '<label><input type="checkbox" name="ebc_settings[' . esc_attr( $key ) . ']" value="1" ' . checked( (int) $value, 1, false ) . ' /> ' . esc_html__( 'Yes', 'employee-business-cards' ) . '</label>';
+				break;
+			case 'provider_type':
+				echo '<select name="ebc_settings[qr_provider_type]">';
+				echo '<option value="local" ' . selected( (string) $value, 'local', false ) . '>' . esc_html__( 'Local (server-side cached)', 'employee-business-cards' ) . '</option>';
+				echo '<option value="external" ' . selected( (string) $value, 'external', false ) . '>' . esc_html__( 'External provider URL', 'employee-business-cards' ) . '</option>';
+				echo '</select>';
 				break;
 			case 'select':
 				echo '<select name="ebc_settings[' . esc_attr( $key ) . ']">';
-				echo '<option value="rounded" ' . selected( (string) $value, 'rounded', false ) . '>' . esc_html__( 'Rounded', EBC_TEXT_DOMAIN ) . '</option>';
-				echo '<option value="square" ' . selected( (string) $value, 'square', false ) . '>' . esc_html__( 'Square', EBC_TEXT_DOMAIN ) . '</option>';
+				echo '<option value="rounded" ' . selected( (string) $value, 'rounded', false ) . '>' . esc_html__( 'Rounded', 'employee-business-cards' ) . '</option>';
+				echo '<option value="square" ' . selected( (string) $value, 'square', false ) . '>' . esc_html__( 'Square', 'employee-business-cards' ) . '</option>';
 				echo '</select>';
 				break;
 			default:
-				echo '<input type="' . esc_attr( $type ) . '" class="regular-text" name="ebc_settings[' . esc_attr( $key ) . ']" value="' . esc_attr( (string) $value ) . '" />';
+				$disabled = '';
+				if ( 'qr_provider_template' === $key && 'external' !== ( $settings['qr_provider_type'] ?? 'local' ) ) {
+					$disabled = ' disabled';
+				}
+				echo '<input type="' . esc_attr( $type ) . '" class="regular-text" name="ebc_settings[' . esc_attr( $key ) . ']" value="' . esc_attr( (string) $value ) . '"' . $disabled . ' />';
 				if ( 'qr_provider_template' === $key ) {
-					echo '<p class="description">' . esc_html__( 'Use {url} placeholder for the public card URL.', EBC_TEXT_DOMAIN ) . '</p>';
+					echo '<p class="description">' . esc_html__( 'Used only when provider type is External. Must include {url}.', 'employee-business-cards' ) . '</p>';
 				}
 		}
 	}
@@ -134,16 +145,26 @@ class EBC_Settings {
 		$sanitized['default_company_name'] = isset( $input['default_company_name'] ) ? sanitize_text_field( (string) $input['default_company_name'] ) : $defaults['default_company_name'];
 		$sanitized['default_website_url']  = isset( $input['default_website_url'] ) ? esc_url_raw( (string) $input['default_website_url'] ) : $defaults['default_website_url'];
 		$sanitized['enable_qr_code']       = isset( $input['enable_qr_code'] ) ? 1 : 0;
-		$sanitized['qr_provider_template'] = isset( $input['qr_provider_template'] ) ? sanitize_text_field( (string) $input['qr_provider_template'] ) : $defaults['qr_provider_template'];
-		$sanitized['primary_color']        = isset( $input['primary_color'] ) ? sanitize_hex_color( (string) $input['primary_color'] ) : $defaults['primary_color'];
-		$sanitized['button_style']         = isset( $input['button_style'] ) && in_array( $input['button_style'], array( 'rounded', 'square' ), true ) ? $input['button_style'] : $defaults['button_style'];
+		$sanitized['qr_provider_type']     = isset( $input['qr_provider_type'] ) && in_array( $input['qr_provider_type'], array( 'local', 'external' ), true ) ? $input['qr_provider_type'] : $defaults['qr_provider_type'];
+		$sanitized['qr_provider_template'] = $defaults['qr_provider_template'];
+
+		if ( isset( $input['qr_provider_template'] ) ) {
+			$raw_template = sanitize_text_field( (string) $input['qr_provider_template'] );
+			if ( false !== strpos( $raw_template, '{url}' ) ) {
+				$test_url = str_replace( '{url}', 'https://example.test', $raw_template );
+				$clean    = esc_url_raw( $test_url );
+				$scheme   = wp_parse_url( $clean, PHP_URL_SCHEME );
+				if ( $clean && in_array( $scheme, array( 'http', 'https' ), true ) ) {
+					$sanitized['qr_provider_template'] = sanitize_text_field( str_replace( 'https://example.test', '{url}', $clean ) );
+				}
+			}
+		}
+
+		$sanitized['primary_color'] = isset( $input['primary_color'] ) ? sanitize_hex_color( (string) $input['primary_color'] ) : $defaults['primary_color'];
+		$sanitized['button_style']  = isset( $input['button_style'] ) && in_array( $input['button_style'], array( 'rounded', 'square' ), true ) ? $input['button_style'] : $defaults['button_style'];
 
 		if ( empty( $sanitized['primary_color'] ) ) {
 			$sanitized['primary_color'] = $defaults['primary_color'];
-		}
-
-		if ( false === strpos( $sanitized['qr_provider_template'], '{url}' ) ) {
-			$sanitized['qr_provider_template'] = $defaults['qr_provider_template'];
 		}
 
 		return $sanitized;
@@ -160,7 +181,7 @@ class EBC_Settings {
 		}
 		?>
 		<div class="wrap">
-			<h1><?php echo esc_html__( 'Employee Business Cards Settings', EBC_TEXT_DOMAIN ); ?></h1>
+			<h1><?php echo esc_html__( 'Employee Business Cards Settings', 'employee-business-cards' ); ?></h1>
 			<form method="post" action="options.php">
 				<?php
 				settings_fields( 'ebc_settings_group' );

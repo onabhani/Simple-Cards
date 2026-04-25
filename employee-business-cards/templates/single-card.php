@@ -55,10 +55,10 @@ $qr_url    = ebc_get_qr_url( $card_url );
 		<?php if ( $dept ) : ?><p class="ebc-dept"><?php echo esc_html( $dept ); ?></p><?php endif; ?>
 
 		<div class="ebc-actions">
-			<?php if ( $phone ) : ?><a class="ebc-btn" href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>"><?php echo esc_html__( 'Phone', EBC_TEXT_DOMAIN ); ?></a><?php endif; ?>
-			<?php if ( $whatsapp ) : ?><a class="ebc-btn" href="https://wa.me/<?php echo esc_attr( preg_replace( '/[^0-9]/', '', $whatsapp ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__( 'WhatsApp', EBC_TEXT_DOMAIN ); ?></a><?php endif; ?>
-			<?php if ( $email ) : ?><a class="ebc-btn" href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html__( 'Email', EBC_TEXT_DOMAIN ); ?></a><?php endif; ?>
-			<?php if ( $website ) : ?><a class="ebc-btn" href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__( 'Website', EBC_TEXT_DOMAIN ); ?></a><?php endif; ?>
+			<?php if ( $phone ) : ?><a class="ebc-btn" href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>"><?php echo esc_html__( 'Phone', 'employee-business-cards' ); ?></a><?php endif; ?>
+			<?php if ( $whatsapp ) : ?><a class="ebc-btn" href="https://wa.me/<?php echo esc_attr( preg_replace( '/[^0-9]/', '', $whatsapp ) ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__( 'WhatsApp', 'employee-business-cards' ); ?></a><?php endif; ?>
+			<?php if ( $email ) : ?><a class="ebc-btn" href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html__( 'Email', 'employee-business-cards' ); ?></a><?php endif; ?>
+			<?php if ( $website ) : ?><a class="ebc-btn" href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html__( 'Website', 'employee-business-cards' ); ?></a><?php endif; ?>
 		</div>
 
 		<?php if ( $linkedin || $twitter || $instagram ) : ?>
@@ -73,14 +73,19 @@ $qr_url    = ebc_get_qr_url( $card_url );
 		<?php if ( $bio ) : ?><div class="ebc-bio"><?php echo wp_kses_post( wpautop( $bio ) ); ?></div><?php endif; ?>
 
 		<div class="ebc-bottom-actions">
-			<a class="ebc-btn ebc-btn-primary" href="<?php echo esc_url( $vcard_url ); ?>"><?php echo esc_html__( 'Save Contact', EBC_TEXT_DOMAIN ); ?></a>
-			<button class="ebc-btn" type="button" onclick="if(navigator.share){navigator.share({title:document.title,url:'<?php echo esc_js( $card_url ); ?>'});}else{window.prompt('<?php echo esc_js( __( 'Copy this URL:', EBC_TEXT_DOMAIN ) ); ?>','<?php echo esc_js( $card_url ); ?>');}"><?php echo esc_html__( 'Share Card', EBC_TEXT_DOMAIN ); ?></button>
+			<a class="ebc-btn ebc-btn-primary" href="<?php echo esc_url( $vcard_url ); ?>"><?php echo esc_html__( 'Save Contact', 'employee-business-cards' ); ?></a>
+			<button
+				class="ebc-btn ebc-share-btn"
+				type="button"
+				data-ebc-share-url="<?php echo esc_attr( $card_url ); ?>"
+				data-ebc-share-prompt="<?php echo esc_attr__( 'Copy this URL:', 'employee-business-cards' ); ?>"
+			><?php echo esc_html__( 'Share Card', 'employee-business-cards' ); ?></button>
 		</div>
 
 		<?php if ( $qr_url ) : ?>
 			<div class="ebc-qr">
-				<p><?php echo esc_html__( 'Scan to open this card', EBC_TEXT_DOMAIN ); ?></p>
-				<img src="<?php echo esc_url( $qr_url ); ?>" alt="<?php echo esc_attr__( 'QR code for employee card', EBC_TEXT_DOMAIN ); ?>" loading="lazy" />
+				<p><?php echo esc_html__( 'Scan to open this card', 'employee-business-cards' ); ?></p>
+				<img src="<?php echo esc_url( $qr_url ); ?>" alt="<?php echo esc_attr__( 'QR code for employee card', 'employee-business-cards' ); ?>" loading="lazy" />
 			</div>
 		<?php endif; ?>
 	</div>

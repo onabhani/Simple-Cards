@@ -13,7 +13,8 @@
 			frame.on('select', function(){
 				const attachment = frame.state().get('selection').first().toJSON();
 				$('#ebc_profile_photo').val(attachment.id);
-				$('#ebc-media-preview').html('<img src="'+attachment.url+'" alt="" />');
+				const $img = $('<img>').attr('src', attachment.url).attr('alt', '');
+				$('#ebc-media-preview').empty().append($img);
 			});
 			frame.open();
 		});

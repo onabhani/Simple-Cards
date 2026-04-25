@@ -90,10 +90,13 @@ class EBC_Shortcodes {
 		}
 
 		$query_args = array(
-			'post_type'           => 'employee_card',
-			'post_status'         => 'publish',
-			'posts_per_page'      => $limit,
-			'ignore_sticky_posts' => true,
+			'post_type'              => 'employee_card',
+			'post_status'            => 'publish',
+			'posts_per_page'         => $limit,
+			'ignore_sticky_posts'    => true,
+			'no_found_rows'          => true,
+			'update_post_term_cache' => false,
+			'update_post_meta_cache' => true,
 		);
 
 		if ( ! empty( $meta_query ) ) {

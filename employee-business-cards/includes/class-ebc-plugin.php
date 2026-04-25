@@ -70,6 +70,6 @@ class EBC_Plugin {
 	 * @return void
 	 */
 	public function load_textdomain(): void {
-		load_plugin_textdomain( EBC_TEXT_DOMAIN, false, dirname( plugin_basename( EBC_FILE ) ) . '/languages' );
+		load_plugin_textdomain( 'employee-business-cards', false, dirname( plugin_basename( EBC_FILE ) ) . '/languages' );
 	}
 }

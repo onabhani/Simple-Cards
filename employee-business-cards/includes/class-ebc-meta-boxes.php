@@ -47,7 +47,7 @@ class EBC_Meta_Boxes {
 	public function register_meta_boxes(): void {
 		add_meta_box(
 			'ebc_business_card_details',
-			esc_html__( 'Business Card Details', EBC_TEXT_DOMAIN ),
+			esc_html__( 'Business Card Details', 'employee-business-cards' ),
 			array( $this, 'render_details_meta_box' ),
 			'employee_card',
 			'normal',
@@ -56,7 +56,7 @@ class EBC_Meta_Boxes {
 
 		add_meta_box(
 			'ebc_public_card_url',
-			esc_html__( 'Public Card URL', EBC_TEXT_DOMAIN ),
+			esc_html__( 'Public Card URL', 'employee-business-cards' ),
 			array( $this, 'render_public_url_meta_box' ),
 			'employee_card',
 			'side',
@@ -65,7 +65,7 @@ class EBC_Meta_Boxes {
 
 		add_meta_box(
 			'ebc_shortcode_usage',
-			esc_html__( 'Shortcode Usage', EBC_TEXT_DOMAIN ),
+			esc_html__( 'Shortcode Usage', 'employee-business-cards' ),
 			array( $this, 'render_shortcode_meta_box' ),
 			'employee_card',
 			'side',
@@ -99,26 +99,26 @@ class EBC_Meta_Boxes {
 		}
 		?>
 		<div class="ebc-meta-grid">
-			<?php $this->text_field( 'full_name', esc_html__( 'Full Name', EBC_TEXT_DOMAIN ), (string) $values['full_name'], true ); ?>
-			<?php $this->text_field( 'job_title', esc_html__( 'Job Title', EBC_TEXT_DOMAIN ), (string) $values['job_title'], true ); ?>
-			<?php $this->text_field( 'department', esc_html__( 'Department', EBC_TEXT_DOMAIN ), (string) $values['department'], false ); ?>
-			<?php $this->text_field( 'company_name', esc_html__( 'Company Name', EBC_TEXT_DOMAIN ), (string) $values['company_name'], false ); ?>
-			<?php $this->text_field( 'phone', esc_html__( 'Phone Number', EBC_TEXT_DOMAIN ), (string) $values['phone'], false ); ?>
-			<?php $this->text_field( 'whatsapp', esc_html__( 'WhatsApp Number', EBC_TEXT_DOMAIN ), (string) $values['whatsapp'], false ); ?>
-			<?php $this->email_field( 'email', esc_html__( 'Email Address', EBC_TEXT_DOMAIN ), (string) $values['email'] ); ?>
-			<?php $this->url_field( 'website', esc_html__( 'Website URL', EBC_TEXT_DOMAIN ), (string) $values['website'] ); ?>
-			<?php $this->url_field( 'linkedin', esc_html__( 'LinkedIn URL', EBC_TEXT_DOMAIN ), (string) $values['linkedin'] ); ?>
-			<?php $this->url_field( 'twitter', esc_html__( 'X/Twitter URL', EBC_TEXT_DOMAIN ), (string) $values['twitter'] ); ?>
-			<?php $this->url_field( 'instagram', esc_html__( 'Instagram URL', EBC_TEXT_DOMAIN ), (string) $values['instagram'] ); ?>
-			<?php $this->text_field( 'location', esc_html__( 'Location / Branch', EBC_TEXT_DOMAIN ), (string) $values['location'], false ); ?>
-			<?php $this->text_field( 'custom_slug', esc_html__( 'Optional Custom Slug', EBC_TEXT_DOMAIN ), (string) $values['custom_slug'], false ); ?>
+			<?php $this->text_field( 'full_name', esc_html__( 'Full Name', 'employee-business-cards' ), (string) $values['full_name'], true ); ?>
+			<?php $this->text_field( 'job_title', esc_html__( 'Job Title', 'employee-business-cards' ), (string) $values['job_title'], true ); ?>
+			<?php $this->text_field( 'department', esc_html__( 'Department', 'employee-business-cards' ), (string) $values['department'], false ); ?>
+			<?php $this->text_field( 'company_name', esc_html__( 'Company Name', 'employee-business-cards' ), (string) $values['company_name'], false ); ?>
+			<?php $this->text_field( 'phone', esc_html__( 'Phone Number', 'employee-business-cards' ), (string) $values['phone'], false ); ?>
+			<?php $this->text_field( 'whatsapp', esc_html__( 'WhatsApp Number', 'employee-business-cards' ), (string) $values['whatsapp'], false ); ?>
+			<?php $this->email_field( 'email', esc_html__( 'Email Address', 'employee-business-cards' ), (string) $values['email'] ); ?>
+			<?php $this->url_field( 'website', esc_html__( 'Website URL', 'employee-business-cards' ), (string) $values['website'] ); ?>
+			<?php $this->url_field( 'linkedin', esc_html__( 'LinkedIn URL', 'employee-business-cards' ), (string) $values['linkedin'] ); ?>
+			<?php $this->url_field( 'twitter', esc_html__( 'X/Twitter URL', 'employee-business-cards' ), (string) $values['twitter'] ); ?>
+			<?php $this->url_field( 'instagram', esc_html__( 'Instagram URL', 'employee-business-cards' ), (string) $values['instagram'] ); ?>
+			<?php $this->text_field( 'location', esc_html__( 'Location / Branch', 'employee-business-cards' ), (string) $values['location'], false ); ?>
+			<?php $this->text_field( 'custom_slug', esc_html__( 'Optional Custom Slug', 'employee-business-cards' ), (string) $values['custom_slug'], false ); ?>
 		</div>
 		<div class="ebc-field">
-			<label for="ebc_short_bio"><strong><?php echo esc_html__( 'Short Bio', EBC_TEXT_DOMAIN ); ?></strong></label>
+			<label for="ebc_short_bio"><strong><?php echo esc_html__( 'Short Bio', 'employee-business-cards' ); ?></strong></label>
 			<textarea id="ebc_short_bio" name="ebc_fields[short_bio]" rows="4" class="widefat"><?php echo esc_textarea( (string) $values['short_bio'] ); ?></textarea>
 		</div>
 		<div class="ebc-field">
-			<label><strong><?php echo esc_html__( 'Profile Photo', EBC_TEXT_DOMAIN ); ?></strong></label>
+			<label><strong><?php echo esc_html__( 'Profile Photo', 'employee-business-cards' ); ?></strong></label>
 			<?php
 			$photo_id  = (int) $values['profile_photo'];
 			$photo_url = $photo_id ? wp_get_attachment_image_url( $photo_id, 'medium' ) : '';
@@ -130,8 +130,8 @@ class EBC_Meta_Boxes {
 				<?php endif; ?>
 			</div>
 			<p>
-				<button type="button" class="button" id="ebc-upload-photo"><?php echo esc_html__( 'Select Photo', EBC_TEXT_DOMAIN ); ?></button>
-				<button type="button" class="button" id="ebc-remove-photo"><?php echo esc_html__( 'Remove Photo', EBC_TEXT_DOMAIN ); ?></button>
+				<button type="button" class="button" id="ebc-upload-photo"><?php echo esc_html__( 'Select Photo', 'employee-business-cards' ); ?></button>
+				<button type="button" class="button" id="ebc-remove-photo"><?php echo esc_html__( 'Remove Photo', 'employee-business-cards' ); ?></button>
 			</p>
 		</div>
 		<?php
@@ -148,7 +148,7 @@ class EBC_Meta_Boxes {
 		if ( $url ) {
 			echo '<p><a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">' . esc_html( $url ) . '</a></p>';
 		} else {
-			echo '<p>' . esc_html__( 'Publish this card to generate a public URL.', EBC_TEXT_DOMAIN ) . '</p>';
+			echo '<p>' . esc_html__( 'Publish this card to generate a public URL.', 'employee-business-cards' ) . '</p>';
 		}
 	}
 
@@ -215,34 +215,35 @@ class EBC_Meta_Boxes {
 				$value = call_user_func( $sanitizers[ $name ], $value );
 			}
 
-			if ( '' === $value || null === $value ) {
+			$is_empty = '' === $value || null === $value;
+			if ( 'profile_photo' === $name && 0 === (int) $value ) {
+				$is_empty = true;
+			}
+
+			if ( $is_empty ) {
 				delete_post_meta( $post_id, $meta_key );
 			} else {
 				update_post_meta( $post_id, $meta_key, $value );
 			}
 		}
 
-		$full_name = isset( $raw_fields['full_name'] ) ? sanitize_text_field( $raw_fields['full_name'] ) : '';
+		$full_name   = isset( $raw_fields['full_name'] ) ? sanitize_text_field( $raw_fields['full_name'] ) : '';
+		$custom_slug = isset( $raw_fields['custom_slug'] ) ? sanitize_title( $raw_fields['custom_slug'] ) : '';
+		$update_post = array(
+			'ID' => $post_id,
+		);
+
 		if ( '' !== $full_name ) {
-			remove_action( 'save_post_employee_card', array( $this, 'save_details' ) );
-			wp_update_post(
-				array(
-					'ID'         => $post_id,
-					'post_title' => $full_name,
-				)
-			);
-			add_action( 'save_post_employee_card', array( $this, 'save_details' ) );
+			$update_post['post_title'] = $full_name;
 		}
 
-		$custom_slug = isset( $raw_fields['custom_slug'] ) ? sanitize_title( $raw_fields['custom_slug'] ) : '';
 		if ( '' !== $custom_slug ) {
+			$update_post['post_name'] = $custom_slug;
+		}
+
+		if ( count( $update_post ) > 1 ) {
 			remove_action( 'save_post_employee_card', array( $this, 'save_details' ) );
-			wp_update_post(
-				array(
-					'ID'        => $post_id,
-					'post_name' => $custom_slug,
-				)
-			);
+			wp_update_post( $update_post );
 			add_action( 'save_post_employee_card', array( $this, 'save_details' ) );
 		}
 	}

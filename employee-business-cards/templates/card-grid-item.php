@@ -9,7 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$card_id   = isset( $post_id ) ? absint( $post_id ) : get_the_ID();
+$card_id = isset( $post_id ) ? absint( $post_id ) : get_the_ID();
+if ( ! $card_id ) {
+	return;
+}
+
 $name      = ebc_get_card_name( $card_id );
 $job_title = (string) ebc_get_field_value( $card_id, 'job_title' );
 $company   = (string) ebc_get_field_value( $card_id, 'company_name' );
@@ -23,5 +27,5 @@ $url       = ebc_get_card_url( $card_id );
 	<h3><?php echo esc_html( $name ); ?></h3>
 	<?php if ( $job_title ) : ?><p class="ebc-grid-job"><?php echo esc_html( $job_title ); ?></p><?php endif; ?>
 	<?php if ( $company ) : ?><p class="ebc-grid-company"><?php echo esc_html( $company ); ?></p><?php endif; ?>
-	<a class="ebc-btn ebc-btn-primary" href="<?php echo esc_url( $url ); ?>"><?php echo esc_html__( 'View Card', EBC_TEXT_DOMAIN ); ?></a>
+	<a class="ebc-btn ebc-btn-primary" href="<?php echo esc_url( $url ); ?>"><?php echo esc_html__( 'View Card', 'employee-business-cards' ); ?></a>
 </article>

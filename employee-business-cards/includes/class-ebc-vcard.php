@@ -43,7 +43,12 @@ class EBC_VCard {
 		}
 
 		$post_id = absint( wp_unslash( $_GET['employee_card_vcf'] ) );
-		$post    = get_post( $post_id );
+		if ( $post_id <= 0 ) {
+			status_header( 404 );
+			exit;
+		}
+
+		$post = get_post( $post_id );
 
 		if ( ! $post instanceof WP_Post || 'employee_card' !== $post->post_type || 'publish' !== $post->post_status ) {
 			status_header( 404 );
@@ -63,11 +68,17 @@ class EBC_VCard {
 		$lines = array(
 			'BEGIN:VCARD',
 			'VERSION:3.0',
-			'FN:' . $this->escape_vcard( $name ),
-			'TITLE:' . $this->escape_vcard( $job_title ),
-			'ORG:' . $this->escape_vcard( $company ),
 		);
 
+		if ( $name ) {
+			$lines[] = 'FN:' . $this->escape_vcard( $name );
+		}
+		if ( $job_title ) {
+			$lines[] = 'TITLE:' . $this->escape_vcard( $job_title );
+		}
+		if ( $company ) {
+			$lines[] = 'ORG:' . $this->escape_vcard( $company );
+		}
 		if ( $phone ) {
 			$lines[] = 'TEL;TYPE=WORK,VOICE:' . $this->escape_vcard( $phone );
 		}
@@ -81,7 +92,7 @@ class EBC_VCard {
 			$lines[] = 'URL;TYPE=WORK:' . $this->escape_vcard( $website );
 		}
 		if ( $linkedin ) {
-			$lines[] = 'URL;TYPE=LinkedIn:' . $this->escape_vcard( $linkedin );
+			$lines[] = 'X-SOCIALPROFILE;TYPE=linkedin:' . $this->escape_vcard( $linkedin );
 		}
 		if ( $location ) {
 			$lines[] = 'ADR;TYPE=WORK:;;' . $this->escape_vcard( $location ) . ';;;;';
@@ -90,6 +101,7 @@ class EBC_VCard {
 		$lines[] = 'END:VCARD';
 		$content = implode( "\r\n", $lines ) . "\r\n";
 
+		nocache_headers();
 		header( 'Content-Type: text/vcard; charset=utf-8' );
 		header( 'Content-Disposition: attachment; filename="employee-card-' . $post_id . '.vcf"' );
 		header( 'Content-Length: ' . strlen( $content ) );

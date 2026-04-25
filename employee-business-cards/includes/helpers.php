@@ -16,21 +16,21 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function ebc_get_meta_fields(): array {
 	return array(
-		'full_name'      => '_ebc_full_name',
-		'job_title'      => '_ebc_job_title',
-		'department'     => '_ebc_department',
-		'company_name'   => '_ebc_company_name',
-		'profile_photo'  => '_ebc_profile_photo_id',
-		'phone'          => '_ebc_phone',
-		'whatsapp'       => '_ebc_whatsapp',
-		'email'          => '_ebc_email',
-		'website'        => '_ebc_website',
-		'linkedin'       => '_ebc_linkedin',
-		'twitter'        => '_ebc_twitter',
-		'instagram'      => '_ebc_instagram',
-		'location'       => '_ebc_location',
-		'short_bio'      => '_ebc_short_bio',
-		'custom_slug'    => '_ebc_custom_slug',
+		'full_name'     => '_ebc_full_name',
+		'job_title'     => '_ebc_job_title',
+		'department'    => '_ebc_department',
+		'company_name'  => '_ebc_company_name',
+		'profile_photo' => '_ebc_profile_photo_id',
+		'phone'         => '_ebc_phone',
+		'whatsapp'      => '_ebc_whatsapp',
+		'email'         => '_ebc_email',
+		'website'       => '_ebc_website',
+		'linkedin'      => '_ebc_linkedin',
+		'twitter'       => '_ebc_twitter',
+		'instagram'     => '_ebc_instagram',
+		'location'      => '_ebc_location',
+		'short_bio'     => '_ebc_short_bio',
+		'custom_slug'   => '_ebc_custom_slug',
 	);
 }
 
@@ -43,7 +43,8 @@ function ebc_get_default_settings(): array {
 	return array(
 		'default_company_name' => '',
 		'default_website_url'  => '',
-		'enable_qr_code'       => 1,
+		'enable_qr_code'       => 0,
+		'qr_provider_type'     => 'local',
 		'qr_provider_template' => 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data={url}',
 		'primary_color'        => '#1d4ed8',
 		'button_style'         => 'rounded',
@@ -128,8 +129,8 @@ function ebc_get_vcard_url( int $post_id ): string {
 /**
  * Get card photo URL.
  *
- * @param int $post_id Post ID.
- * @param string $size Image size.
+ * @param int    $post_id Post ID.
+ * @param string $size    Image size.
  * @return string
  */
 function ebc_get_card_photo_url( int $post_id, string $size = 'medium' ): string {
@@ -147,7 +148,7 @@ function ebc_get_card_photo_url( int $post_id, string $size = 'medium' ): string
 }
 
 /**
- * Build QR code URL from template.
+ * Build QR code URL.
  *
  * @param string $card_url Card URL.
  * @return string
@@ -159,10 +160,67 @@ function ebc_get_qr_url( string $card_url ): string {
 		return '';
 	}
 
+	$provider_type = $settings['qr_provider_type'] ?? 'local';
+	if ( 'external' === $provider_type ) {
+		$template = isset( $settings['qr_provider_template'] ) ? (string) $settings['qr_provider_template'] : '';
+		if ( '' === $template || false === strpos( $template, '{url}' ) ) {
+			return '';
+		}
+
+		return str_replace( '{url}', rawurlencode( $card_url ), $template );
+	}
+
+	return ebc_get_local_qr_url( $card_url, $settings );
+}
+
+/**
+ * Return locally cached QR image URL.
+ *
+ * @param string              $card_url Card URL.
+ * @param array<string,mixed> $settings Plugin settings.
+ * @return string
+ */
+function ebc_get_local_qr_url( string $card_url, array $settings ): string {
+	$uploads = wp_upload_dir();
+	if ( empty( $uploads['basedir'] ) || empty( $uploads['baseurl'] ) ) {
+		return '';
+	}
+
+	$dir_path = trailingslashit( $uploads['basedir'] ) . 'ebc-qr';
+	$dir_url  = trailingslashit( $uploads['baseurl'] ) . 'ebc-qr';
+	if ( ! wp_mkdir_p( $dir_path ) ) {
+		return '';
+	}
+
+	$file_name = 'qr-' . md5( $card_url ) . '.png';
+	$file_path = trailingslashit( $dir_path ) . $file_name;
+	$file_url  = trailingslashit( $dir_url ) . $file_name;
+
+	if ( file_exists( $file_path ) ) {
+		return $file_url;
+	}
+
 	$template = isset( $settings['qr_provider_template'] ) ? (string) $settings['qr_provider_template'] : '';
 	if ( '' === $template || false === strpos( $template, '{url}' ) ) {
 		return '';
 	}
 
-	return str_replace( '{url}', rawurlencode( $card_url ), $template );
+	$remote_qr = str_replace( '{url}', rawurlencode( $card_url ), $template );
+	$response  = wp_remote_get( $remote_qr, array( 'timeout' => 10 ) );
+
+	if ( is_wp_error( $response ) || 200 !== (int) wp_remote_retrieve_response_code( $response ) ) {
+		return '';
+	}
+
+	$body = wp_remote_retrieve_body( $response );
+	if ( empty( $body ) ) {
+		return '';
+	}
+
+	$written = file_put_contents( $file_path, $body );
+	if ( false === $written ) {
+		return '';
+	}
+
+	return $file_url;
 }

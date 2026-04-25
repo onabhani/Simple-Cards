@@ -40,8 +40,11 @@ class EBC_Assets {
 	 * @return void
 	 */
 	public function enqueue_admin_assets( string $hook_suffix ): void {
-		global $post_type;
+		if ( ! in_array( $hook_suffix, array( 'post.php', 'post-new.php' ), true ) ) {
+			return;
+		}
 
+		global $post_type;
 		if ( 'employee_card' !== $post_type ) {
 			return;
 		}
@@ -54,8 +57,8 @@ class EBC_Assets {
 			'ebc-admin',
 			'ebcAdmin',
 			array(
-				'title'  => esc_html__( 'Select Profile Photo', EBC_TEXT_DOMAIN ),
-				'button' => esc_html__( 'Use This Image', EBC_TEXT_DOMAIN ),
+				'title'  => __( 'Select Profile Photo', 'employee-business-cards' ),
+				'button' => __( 'Use This Image', 'employee-business-cards' ),
 			)
 		);
 	}
@@ -78,6 +81,7 @@ class EBC_Assets {
 	 */
 	public static function enqueue_public_assets(): void {
 		wp_enqueue_style( 'ebc-public', EBC_URL . 'assets/css/public.css', array(), EBC_VERSION );
+		wp_enqueue_script( 'ebc-public', EBC_URL . 'assets/js/public.js', array(), EBC_VERSION, true );
 
 		$settings     = ebc_get_settings();
 		$primary      = isset( $settings['primary_color'] ) ? sanitize_hex_color( (string) $settings['primary_color'] ) : '#1d4ed8';

@@ -48,17 +48,17 @@ class EBC_Post_Type {
 	 */
 	public static function register_post_type(): void {
 		$labels = array(
-			'name'               => esc_html__( 'Employee Cards', EBC_TEXT_DOMAIN ),
-			'singular_name'      => esc_html__( 'Employee Card', EBC_TEXT_DOMAIN ),
-			'add_new_item'       => esc_html__( 'Add New Employee Card', EBC_TEXT_DOMAIN ),
-			'edit_item'          => esc_html__( 'Edit Employee Card', EBC_TEXT_DOMAIN ),
-			'add_new'            => esc_html__( 'Add New', EBC_TEXT_DOMAIN ),
-			'new_item'           => esc_html__( 'New Employee Card', EBC_TEXT_DOMAIN ),
-			'view_item'          => esc_html__( 'View Employee Card', EBC_TEXT_DOMAIN ),
-			'search_items'       => esc_html__( 'Search Employee Cards', EBC_TEXT_DOMAIN ),
-			'not_found'          => esc_html__( 'No employee cards found.', EBC_TEXT_DOMAIN ),
-			'not_found_in_trash' => esc_html__( 'No employee cards found in Trash.', EBC_TEXT_DOMAIN ),
-			'menu_name'          => esc_html__( 'Employee Cards', EBC_TEXT_DOMAIN ),
+			'name'               => esc_html__( 'Employee Cards', 'employee-business-cards' ),
+			'singular_name'      => esc_html__( 'Employee Card', 'employee-business-cards' ),
+			'add_new_item'       => esc_html__( 'Add New Employee Card', 'employee-business-cards' ),
+			'edit_item'          => esc_html__( 'Edit Employee Card', 'employee-business-cards' ),
+			'add_new'            => esc_html__( 'Add New', 'employee-business-cards' ),
+			'new_item'           => esc_html__( 'New Employee Card', 'employee-business-cards' ),
+			'view_item'          => esc_html__( 'View Employee Card', 'employee-business-cards' ),
+			'search_items'       => esc_html__( 'Search Employee Cards', 'employee-business-cards' ),
+			'not_found'          => esc_html__( 'No employee cards found.', 'employee-business-cards' ),
+			'not_found_in_trash' => esc_html__( 'No employee cards found in Trash.', 'employee-business-cards' ),
+			'menu_name'          => esc_html__( 'Employee Cards', 'employee-business-cards' ),
 		);
 
 		$args = array(
@@ -89,11 +89,18 @@ class EBC_Post_Type {
 	 * @return string
 	 */
 	public function load_single_template( string $template ): string {
-		if ( is_singular( 'employee_card' ) ) {
-			$plugin_template = EBC_PATH . 'templates/single-card.php';
-			if ( file_exists( $plugin_template ) ) {
-				return $plugin_template;
-			}
+		if ( ! is_singular( 'employee_card' ) ) {
+			return $template;
+		}
+
+		$theme_template = locate_template( array( 'single-employee_card.php' ), false, false );
+		if ( ! empty( $theme_template ) ) {
+			return $template;
+		}
+
+		$plugin_template = EBC_PATH . 'templates/single-card.php';
+		if ( file_exists( $plugin_template ) ) {
+			return $plugin_template;
 		}
 
 		return $template;
@@ -108,13 +115,13 @@ class EBC_Post_Type {
 	public function admin_columns( array $columns ): array {
 		$new_columns = array(
 			'cb'         => $columns['cb'] ?? '',
-			'photo'      => esc_html__( 'Photo', EBC_TEXT_DOMAIN ),
-			'title'      => esc_html__( 'Name', EBC_TEXT_DOMAIN ),
-			'job_title'  => esc_html__( 'Job Title', EBC_TEXT_DOMAIN ),
-			'company'    => esc_html__( 'Company', EBC_TEXT_DOMAIN ),
-			'department' => esc_html__( 'Department', EBC_TEXT_DOMAIN ),
-			'public_url' => esc_html__( 'Public URL', EBC_TEXT_DOMAIN ),
-			'date'       => $columns['date'] ?? esc_html__( 'Date', EBC_TEXT_DOMAIN ),
+			'photo'      => esc_html__( 'Photo', 'employee-business-cards' ),
+			'title'      => esc_html__( 'Name', 'employee-business-cards' ),
+			'job_title'  => esc_html__( 'Job Title', 'employee-business-cards' ),
+			'company'    => esc_html__( 'Company', 'employee-business-cards' ),
+			'department' => esc_html__( 'Department', 'employee-business-cards' ),
+			'public_url' => esc_html__( 'Public URL', 'employee-business-cards' ),
+			'date'       => $columns['date'] ?? esc_html__( 'Date', 'employee-business-cards' ),
 		);
 
 		return $new_columns;
@@ -149,7 +156,7 @@ class EBC_Post_Type {
 			case 'public_url':
 				$url = ebc_get_card_url( $post_id );
 				if ( $url ) {
-					echo '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'View Card', EBC_TEXT_DOMAIN ) . '</a>';
+					echo '<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">' . esc_html__( 'View Card', 'employee-business-cards' ) . '</a>';
 				}
 				break;
 		}
