@@ -73,6 +73,7 @@ class EBC_Settings {
 		$this->add_field( 'qr_provider_template', esc_html__( 'QR code provider URL template', 'employee-business-cards' ), 'text' );
 		$this->add_field( 'primary_color', esc_html__( 'Primary color', 'employee-business-cards' ), 'color' );
 		$this->add_field( 'button_style', esc_html__( 'Button style', 'employee-business-cards' ), 'select' );
+		$this->add_field( 'hide_theme_chrome', esc_html__( 'Hide theme header & footer on card pages', 'employee-business-cards' ), 'checkbox' );
 	}
 
 	/**
@@ -145,6 +146,7 @@ class EBC_Settings {
 		$sanitized['default_company_name'] = isset( $input['default_company_name'] ) ? sanitize_text_field( (string) $input['default_company_name'] ) : $defaults['default_company_name'];
 		$sanitized['default_website_url']  = isset( $input['default_website_url'] ) ? esc_url_raw( (string) $input['default_website_url'] ) : $defaults['default_website_url'];
 		$sanitized['enable_qr_code']       = isset( $input['enable_qr_code'] ) ? 1 : 0;
+		$sanitized['hide_theme_chrome']    = isset( $input['hide_theme_chrome'] ) ? 1 : 0;
 		$sanitized['qr_provider_type']     = isset( $input['qr_provider_type'] ) && in_array( $input['qr_provider_type'], array( 'local', 'external' ), true ) ? $input['qr_provider_type'] : $defaults['qr_provider_type'];
 		$sanitized['qr_provider_template'] = $defaults['qr_provider_template'];
 

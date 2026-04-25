@@ -24,13 +24,14 @@ Go to **Employee Cards → Settings** and configure:
 
 - Default company name
 - Default website URL
-- Enable QR code (disabled by default)
+- Enable QR code (enabled by default; reveals a "Show QR" button on the card)
 - QR provider type:
   - **Local (server-side cached)**: plugin fetches and stores QR images in uploads and serves local URLs.
   - **External provider URL**: plugin uses a direct external image URL pattern.
 - QR code provider URL template (used only for External mode and must include `{url}`)
 - Primary color
 - Button style (rounded/square)
+- Hide theme header & footer on card pages (enabled by default) — strips the active theme's header and footer when viewing a single employee card or any post that contains the `[employee_business_card]` shortcode.
 
 ## Shortcodes
 

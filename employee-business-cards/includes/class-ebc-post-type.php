@@ -85,22 +85,60 @@ class EBC_Post_Type {
 	/**
 	 * Load plugin single template.
 	 *
+	 * Renders a clean, theme-chrome-free page for both single employee cards
+	 * and any post/page that embeds the [employee_business_card] shortcode.
+	 *
 	 * @param string $template Current template.
 	 * @return string
 	 */
 	public function load_single_template( string $template ): string {
-		if ( ! is_singular( 'employee_card' ) ) {
+		if ( is_singular( 'employee_card' ) ) {
+			$theme_template = locate_template( array( 'single-employee_card.php' ), false, false );
+			if ( ! empty( $theme_template ) ) {
+				return $template;
+			}
+
+			$settings = ebc_get_settings();
+			if ( ! empty( $settings['hide_theme_chrome'] ) ) {
+				$clean = EBC_PATH . 'templates/clean-page.php';
+				if ( file_exists( $clean ) ) {
+					return $clean;
+				}
+			}
+
+			$plugin_template = EBC_PATH . 'templates/single-card.php';
+			if ( file_exists( $plugin_template ) ) {
+				return $plugin_template;
+			}
+
 			return $template;
 		}
 
-		$theme_template = locate_template( array( 'single-employee_card.php' ), false, false );
-		if ( ! empty( $theme_template ) ) {
+		if ( ! is_singular() ) {
 			return $template;
 		}
 
-		$plugin_template = EBC_PATH . 'templates/single-card.php';
-		if ( file_exists( $plugin_template ) ) {
-			return $plugin_template;
+		$post = get_post();
+		if ( ! $post instanceof WP_Post ) {
+			return $template;
+		}
+
+		if ( false === strpos( (string) $post->post_content, '[employee_business_card' ) ) {
+			return $template;
+		}
+
+		$settings = ebc_get_settings();
+		if ( empty( $settings['hide_theme_chrome'] ) ) {
+			return $template;
+		}
+
+		if ( ! has_shortcode( (string) $post->post_content, 'employee_business_card' ) ) {
+			return $template;
+		}
+
+		$clean = EBC_PATH . 'templates/clean-page.php';
+		if ( file_exists( $clean ) ) {
+			return $clean;
 		}
 
 		return $template;
