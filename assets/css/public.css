@@ -46,7 +46,7 @@ body.ebc-clean-page .ebc-card-wrap { margin: 0 auto; }
 	height: 1em;
 	vertical-align: -0.125em;
 	display: inline-block;
-	fill: currentColor;
+	fill: currentcolor;
 	flex-shrink: 0;
 }
 /* Brand icons (linkedin / twitter / instagram) ship as <img>; size them
