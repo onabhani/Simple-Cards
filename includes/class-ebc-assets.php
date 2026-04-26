@@ -80,7 +80,13 @@ class EBC_Assets {
 	 * @return void
 	 */
 	public static function enqueue_public_assets(): void {
-		wp_enqueue_style( 'ebc-public', EBC_URL . 'assets/css/public.css', array(), EBC_VERSION );
+		wp_enqueue_style(
+			'ebc-fontawesome',
+			'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css',
+			array(),
+			'6.5.2'
+		);
+		wp_enqueue_style( 'ebc-public', EBC_URL . 'assets/css/public.css', array( 'ebc-fontawesome' ), EBC_VERSION );
 		wp_enqueue_script( 'ebc-public', EBC_URL . 'assets/js/public.js', array(), EBC_VERSION, true );
 
 		$settings     = ebc_get_settings();
