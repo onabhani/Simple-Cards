@@ -46,9 +46,10 @@ function ebc_get_default_settings(): array {
 		'enable_qr_code'       => 1,
 		'qr_provider_type'     => 'local',
 		'qr_provider_template' => 'https://api.qrserver.com/v1/create-qr-code/?size=320x320&data={url}',
-		'primary_color'        => '#1d4ed8',
+		'primary_color'        => '#F05C28',
 		'button_style'         => 'rounded',
 		'hide_theme_chrome'    => 1,
+		'design_template'      => 'v1',
 	);
 }
 
