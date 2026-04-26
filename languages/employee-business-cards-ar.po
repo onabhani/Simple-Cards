@@ -1,0 +1,233 @@
+# Arabic translation for Employee Business Cards.
+# Copyright (C) 2026 Omar Alnabhane
+# This file is distributed under the same license as the Employee Business Cards plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Employee Business Cards 1.1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-04-26 00:00+0000\n"
+"PO-Revision-Date: 2026-04-26 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+"X-Domain: employee-business-cards\n"
+
+msgid "Employee Business Cards requires PHP 8.0 or newer."
+msgstr "إضافة بطاقات أعمال الموظفين تتطلب PHP 8.0 أو أحدث."
+
+msgid "Select Profile Photo"
+msgstr "اختر صورة الملف الشخصي"
+
+msgid "Use This Image"
+msgstr "استخدم هذه الصورة"
+
+msgid "WhatsApp"
+msgstr "واتساب"
+
+msgid "Phone"
+msgstr "هاتف"
+
+msgid "Website"
+msgstr "الموقع"
+
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+msgid "Save Contact"
+msgstr "حفظ جهة الاتصال"
+
+msgid "Copy this URL:"
+msgstr "انسخ هذا الرابط:"
+
+msgid "Share Card"
+msgstr "مشاركة البطاقة"
+
+msgid "Show QR"
+msgstr "إظهار رمز QR"
+
+msgid "Hide QR"
+msgstr "إخفاء رمز QR"
+
+msgid "Scan to open this card"
+msgstr "امسح الرمز لفتح هذه البطاقة"
+
+msgid "QR code for employee card"
+msgstr "رمز QR لبطاقة الموظف"
+
+msgid "LinkedIn"
+msgstr "لينكد إن"
+
+msgid "X / Twitter"
+msgstr "إكس / تويتر"
+
+msgid "Instagram"
+msgstr "إنستغرام"
+
+msgid "View Card"
+msgstr "عرض البطاقة"
+
+msgid "Business Card Details"
+msgstr "تفاصيل بطاقة العمل"
+
+msgid "Public Card URL"
+msgstr "رابط البطاقة العام"
+
+msgid "Shortcode Usage"
+msgstr "استخدام الشورت كود"
+
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+msgid "Job Title"
+msgstr "المسمى الوظيفي"
+
+msgid "Department"
+msgstr "القسم"
+
+msgid "Company Name"
+msgstr "اسم الشركة"
+
+msgid "Phone Number"
+msgstr "رقم الهاتف"
+
+msgid "WhatsApp Number"
+msgstr "رقم واتساب"
+
+msgid "Email Address"
+msgstr "عنوان البريد الإلكتروني"
+
+msgid "Website URL"
+msgstr "رابط الموقع"
+
+msgid "LinkedIn URL"
+msgstr "رابط لينكد إن"
+
+msgid "X/Twitter URL"
+msgstr "رابط إكس/تويتر"
+
+msgid "Instagram URL"
+msgstr "رابط إنستغرام"
+
+msgid "Location / Branch"
+msgstr "الموقع / الفرع"
+
+msgid "Optional Custom Slug"
+msgstr "اسم مختصر مخصص (اختياري)"
+
+msgid "Short Bio"
+msgstr "نبذة مختصرة"
+
+msgid "Profile Photo"
+msgstr "الصورة الشخصية"
+
+msgid "Select Photo"
+msgstr "اختر صورة"
+
+msgid "Remove Photo"
+msgstr "إزالة الصورة"
+
+msgid "Publish this card to generate a public URL."
+msgstr "انشر هذه البطاقة لتوليد رابط عام."
+
+msgid "Employee Card Settings"
+msgstr "إعدادات بطاقة الموظف"
+
+msgid "Settings"
+msgstr "الإعدادات"
+
+msgid "General Settings"
+msgstr "الإعدادات العامة"
+
+msgid "Default company name"
+msgstr "اسم الشركة الافتراضي"
+
+msgid "Default website URL"
+msgstr "رابط الموقع الافتراضي"
+
+msgid "Enable QR code"
+msgstr "تفعيل رمز QR"
+
+msgid "QR provider type"
+msgstr "نوع مزود رمز QR"
+
+msgid "QR code provider URL template"
+msgstr "قالب رابط مزود رمز QR"
+
+msgid "Primary color"
+msgstr "اللون الأساسي"
+
+msgid "Button style"
+msgstr "نمط الأزرار"
+
+msgid "Hide theme header & footer on card pages"
+msgstr "إخفاء ترويسة وتذييل القالب في صفحات البطاقات"
+
+msgid "Yes"
+msgstr "نعم"
+
+msgid "Local (server-side cached)"
+msgstr "محلي (مخزن مؤقتًا على الخادم)"
+
+msgid "External provider URL"
+msgstr "مزود خارجي عبر رابط"
+
+msgid "Rounded"
+msgstr "مدور"
+
+msgid "Square"
+msgstr "مربع"
+
+msgid "Used only when provider type is External. Must include {url}."
+msgstr "يُستخدم فقط عند اختيار النوع الخارجي. يجب أن يحتوي على {url}."
+
+msgid "Employee Business Cards Settings"
+msgstr "إعدادات بطاقات أعمال الموظفين"
+
+msgid "Employee Cards"
+msgstr "بطاقات الموظفين"
+
+msgid "Employee Card"
+msgstr "بطاقة موظف"
+
+msgid "Add New Employee Card"
+msgstr "إضافة بطاقة موظف جديدة"
+
+msgid "Edit Employee Card"
+msgstr "تعديل بطاقة الموظف"
+
+msgid "Add New"
+msgstr "إضافة جديدة"
+
+msgid "New Employee Card"
+msgstr "بطاقة موظف جديدة"
+
+msgid "View Employee Card"
+msgstr "عرض بطاقة الموظف"
+
+msgid "Search Employee Cards"
+msgstr "بحث في بطاقات الموظفين"
+
+msgid "No employee cards found."
+msgstr "لا توجد بطاقات موظفين."
+
+msgid "No employee cards found in Trash."
+msgstr "لا توجد بطاقات موظفين في المهملات."
+
+msgid "Photo"
+msgstr "الصورة"
+
+msgid "Name"
+msgstr "الاسم"
+
+msgid "Company"
+msgstr "الشركة"
+
+msgid "Public URL"
+msgstr "الرابط العام"
+
+msgid "Date"
+msgstr "التاريخ"
