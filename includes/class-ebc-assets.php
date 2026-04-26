@@ -81,11 +81,6 @@ class EBC_Assets {
 	 */
 	public static function enqueue_public_assets(): void {
 		wp_enqueue_style( 'ebc-public', EBC_URL . 'assets/css/public.css', array(), EBC_VERSION );
-
-		if ( is_rtl() ) {
-			wp_enqueue_style( 'ebc-public-rtl', EBC_URL . 'assets/css/public-rtl.css', array( 'ebc-public' ), EBC_VERSION );
-		}
-
 		wp_enqueue_script( 'ebc-public', EBC_URL . 'assets/js/public.js', array(), EBC_VERSION, true );
 
 		$settings     = ebc_get_settings();

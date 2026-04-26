@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Employee Business Cards
  * Description: Create and share digital business cards for employees.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: Omar Alnabhane
  * Text Domain: employee-business-cards
  * Domain Path: /languages
@@ -25,7 +25,7 @@ if ( PHP_VERSION_ID < 80000 ) {
 	return;
 }
 
-define( 'EBC_VERSION', '1.2.0' );
+define( 'EBC_VERSION', '1.3.0' );
 define( 'EBC_FILE', __FILE__ );
 define( 'EBC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'EBC_URL', plugin_dir_url( __FILE__ ) );

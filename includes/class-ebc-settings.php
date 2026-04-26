@@ -73,6 +73,7 @@ class EBC_Settings {
 		$this->add_field( 'qr_provider_template', esc_html__( 'QR code provider URL template', 'employee-business-cards' ), 'text' );
 		$this->add_field( 'primary_color', esc_html__( 'Primary color', 'employee-business-cards' ), 'color' );
 		$this->add_field( 'button_style', esc_html__( 'Button style', 'employee-business-cards' ), 'select' );
+		$this->add_field( 'design_template', esc_html__( 'Design Template', 'employee-business-cards' ), 'template_select' );
 		$this->add_field( 'hide_theme_chrome', esc_html__( 'Hide theme header & footer on card pages', 'employee-business-cards' ), 'checkbox' );
 	}
 
@@ -121,6 +122,12 @@ class EBC_Settings {
 				echo '<option value="square" ' . selected( (string) $value, 'square', false ) . '>' . esc_html__( 'Square', 'employee-business-cards' ) . '</option>';
 				echo '</select>';
 				break;
+			case 'template_select':
+				echo '<select name="ebc_settings[' . esc_attr( $key ) . ']">';
+				echo '<option value="v1" ' . selected( (string) $value, 'v1', false ) . '>' . esc_html__( 'Version 1 (Orange Header Accent)', 'employee-business-cards' ) . '</option>';
+				echo '<option value="v2" ' . selected( (string) $value, 'v2', false ) . '>' . esc_html__( 'Version 2 (Navy Blue Corporate)', 'employee-business-cards' ) . '</option>';
+				echo '</select>';
+				break;
 			default:
 				$disabled = '';
 				if ( 'qr_provider_template' === $key && 'external' !== ( $settings['qr_provider_type'] ?? 'local' ) ) {
@@ -164,6 +171,7 @@ class EBC_Settings {
 
 		$sanitized['primary_color'] = isset( $input['primary_color'] ) ? sanitize_hex_color( (string) $input['primary_color'] ) : $defaults['primary_color'];
 		$sanitized['button_style']  = isset( $input['button_style'] ) && in_array( $input['button_style'], array( 'rounded', 'square' ), true ) ? $input['button_style'] : $defaults['button_style'];
+		$sanitized['design_template'] = isset( $input['design_template'] ) && in_array( $input['design_template'], array( 'v1', 'v2' ), true ) ? $input['design_template'] : $defaults['design_template'];
 
 		if ( empty( $sanitized['primary_color'] ) ) {
 			$sanitized['primary_color'] = $defaults['primary_color'];
