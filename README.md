@@ -4,7 +4,7 @@ Employee Business Cards is a production-ready WordPress plugin for creating publ
 
 ## Installation
 
-1. Upload the `employee-business-cards` folder to `/wp-content/plugins/`.
+1. Copy this repository's contents into `/wp-content/plugins/employee-business-cards/` (the directory name must be `employee-business-cards`).
 2. Activate **Employee Business Cards** from the WordPress plugins screen.
 3. Go to **Employee Cards** in WP Admin.
 
