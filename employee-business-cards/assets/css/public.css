@@ -1,26 +1,301 @@
-.ebc-card-wrap{max-width:680px;margin:32px auto;padding:0 16px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
-.ebc-card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.08);text-align:center}
-.ebc-avatar img{width:110px;height:110px;object-fit:cover;border-radius:50%;display:block;margin:0 auto 16px}
-.ebc-name{margin:0;font-size:1.55rem}
-.ebc-job-title,.ebc-company,.ebc-dept{margin:.35rem 0;color:#4b5563}
-.ebc-actions,.ebc-bottom-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
-.ebc-btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border:1px solid var(--ebc-primary,#1d4ed8);border-radius:var(--ebc-button-radius,999px);text-decoration:none;color:var(--ebc-primary,#1d4ed8);background:#fff;cursor:pointer;font-size:.95rem}
-.ebc-btn:hover{opacity:.9}
-.ebc-btn-primary{background:var(--ebc-primary,#1d4ed8);color:#fff}
-.ebc-social-links{margin-top:15px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.ebc-social-links a{color:var(--ebc-primary,#1d4ed8);text-decoration:none;font-weight:600}
-.ebc-location{margin-top:16px;color:#111827;font-weight:600}
-.ebc-bio{text-align:left;margin-top:16px;color:#374151}
-.ebc-qr{margin-top:18px}
-.ebc-qr img{max-width:180px;height:auto}
-.ebc-card-grid{display:grid;gap:16px;margin:24px 0}
-.ebc-card-grid.columns-1{grid-template-columns:1fr}
-.ebc-card-grid.columns-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.ebc-card-grid.columns-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.ebc-card-grid.columns-4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.ebc-grid-item{border:1px solid #e5e7eb;border-radius:14px;padding:16px;background:#fff;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.05)}
-.ebc-grid-photo img{width:72px;height:72px;object-fit:cover;border-radius:50%;margin-bottom:10px}
-.ebc-grid-item h3{margin:0 0 6px;font-size:1.1rem}
-.ebc-grid-job,.ebc-grid-company{margin:4px 0;color:#6b7280}
-@media (max-width:900px){.ebc-card-grid.columns-3,.ebc-card-grid.columns-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.ebc-card{padding:18px}.ebc-card-grid.columns-2,.ebc-card-grid.columns-3,.ebc-card-grid.columns-4{grid-template-columns:1fr}}
+/* Employee Business Cards — public styles */
+
+:root{
+	--ebc-primary:#1d4ed8;
+	--ebc-primary-soft:rgba(29,78,216,.08);
+	--ebc-primary-strong:rgba(29,78,216,.18);
+	--ebc-text:#0f172a;
+	--ebc-muted:#475569;
+	--ebc-card-bg:#ffffff;
+	--ebc-card-border:#e5e7eb;
+	--ebc-card-shadow:0 24px 60px rgba(15,23,42,.10), 0 4px 12px rgba(15,23,42,.05);
+	--ebc-button-radius:999px;
+	--ebc-card-radius:24px;
+}
+
+/* Clean page wrapper — used when theme chrome is suppressed */
+body.ebc-clean-page{
+	margin:0;
+	padding:0;
+	background:linear-gradient(180deg,#f7f8fb 0%,#eef2ff 100%);
+	color:var(--ebc-text);
+	font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	min-height:100vh;
+	-webkit-font-smoothing:antialiased;
+}
+body.ebc-clean-page .ebc-clean-main{
+	display:flex;
+	justify-content:center;
+	align-items:flex-start;
+	padding:32px 16px 48px;
+	min-height:100vh;
+	box-sizing:border-box;
+}
+
+/* Card wrapper */
+.ebc-card-wrap{
+	max-width:520px;
+	width:100%;
+	margin:32px auto;
+	padding:0 16px;
+	box-sizing:border-box;
+	font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	color:var(--ebc-text);
+}
+body.ebc-clean-page .ebc-card-wrap{margin:0 auto;}
+
+/* Card */
+.ebc-card-wrap .ebc-card{
+	background:var(--ebc-card-bg);
+	border:1px solid var(--ebc-card-border);
+	border-radius:var(--ebc-card-radius);
+	padding:28px 24px 26px;
+	box-shadow:var(--ebc-card-shadow);
+	text-align:center;
+	box-sizing:border-box;
+	position:relative;
+	overflow:hidden;
+}
+.ebc-card-wrap .ebc-card::before{
+	content:"";
+	position:absolute;
+	inset:0 0 auto 0;
+	height:120px;
+	background:linear-gradient(180deg,var(--ebc-primary-soft) 0%,transparent 100%);
+	pointer-events:none;
+	z-index:0;
+}
+.ebc-card-wrap .ebc-card > *{position:relative;z-index:1;}
+
+/* Top section */
+.ebc-card-wrap .ebc-card-top{padding-top:6px;}
+.ebc-card-wrap .ebc-avatar{margin:0 auto 16px;width:128px;height:128px;}
+.ebc-card-wrap .ebc-avatar img{
+	width:128px;height:128px;
+	object-fit:cover;
+	border-radius:50%;
+	display:block;
+	margin:0 auto;
+	background:#f3f4f6;
+	box-shadow:0 0 0 4px #ffffff, 0 0 0 6px var(--ebc-primary-strong), 0 8px 24px rgba(15,23,42,.10);
+}
+.ebc-card-wrap .ebc-name{
+	margin:6px 0 4px;
+	font-size:1.65rem;
+	line-height:1.2;
+	font-weight:700;
+	letter-spacing:-0.01em;
+	color:var(--ebc-text);
+}
+.ebc-card-wrap .ebc-job-title{
+	margin:.25rem 0;
+	color:var(--ebc-muted);
+	font-size:1rem;
+	font-weight:500;
+}
+.ebc-card-wrap .ebc-company,
+.ebc-card-wrap .ebc-dept{
+	margin:.2rem 0;
+	color:var(--ebc-muted);
+	font-size:.92rem;
+}
+
+/* Action buttons */
+.ebc-card-wrap .ebc-actions{
+	display:grid;
+	grid-template-columns:repeat(2,minmax(0,1fr));
+	gap:10px;
+	margin:20px 0 18px;
+}
+.ebc-card-wrap .ebc-bottom-actions{
+	display:flex;
+	flex-wrap:wrap;
+	gap:10px;
+	justify-content:center;
+	margin-top:18px;
+}
+
+/* Buttons — explicit border on every side, defeats theme overrides */
+.ebc-card-wrap .ebc-btn,
+body.ebc-clean-page .ebc-btn{
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	gap:8px;
+	padding:11px 18px;
+	min-height:44px;
+	border:1.5px solid var(--ebc-primary) !important;
+	border-radius:var(--ebc-button-radius);
+	background:#fff;
+	color:var(--ebc-primary);
+	font-size:.95rem;
+	font-weight:600;
+	line-height:1.2;
+	text-decoration:none !important;
+	cursor:pointer;
+	transition:transform .15s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+	box-shadow:0 1px 0 rgba(15,23,42,.04);
+	-webkit-appearance:none;
+	appearance:none;
+	font-family:inherit;
+	box-sizing:border-box;
+}
+.ebc-card-wrap .ebc-btn:hover,
+body.ebc-clean-page .ebc-btn:hover{
+	background:var(--ebc-primary-soft);
+	transform:translateY(-1px);
+	box-shadow:0 6px 18px rgba(29,78,216,.12);
+}
+.ebc-card-wrap .ebc-btn:focus-visible,
+body.ebc-clean-page .ebc-btn:focus-visible,
+.ebc-card-wrap .ebc-social:focus-visible{
+	outline:3px solid var(--ebc-primary);
+	outline-offset:2px;
+}
+.ebc-card-wrap .ebc-btn-primary,
+body.ebc-clean-page .ebc-btn-primary{
+	background:var(--ebc-primary);
+	color:#fff;
+}
+.ebc-card-wrap .ebc-btn-primary:hover,
+body.ebc-clean-page .ebc-btn-primary:hover{
+	background:#1740b3;
+	color:#fff;
+}
+.ebc-card-wrap .ebc-btn .ebc-icon{
+	width:18px;height:18px;
+	flex:0 0 18px;
+	display:inline-block;
+}
+
+/* Location & bio */
+.ebc-card-wrap .ebc-location{
+	margin:14px 0 6px;
+	color:var(--ebc-text);
+	font-weight:600;
+	font-size:.95rem;
+}
+.ebc-card-wrap .ebc-bio{
+	text-align:center;
+	margin:8px 0 4px;
+	color:var(--ebc-muted);
+	font-size:.92rem;
+	line-height:1.55;
+}
+.ebc-card-wrap .ebc-bio p{margin:.4rem 0;}
+
+/* QR section */
+.ebc-card-wrap .ebc-qr{
+	margin:18px auto 6px;
+	padding:14px;
+	background:#f8fafc;
+	border:1px solid var(--ebc-card-border);
+	border-radius:16px;
+	display:inline-block;
+}
+.ebc-card-wrap .ebc-qr[hidden]{display:none;}
+.ebc-card-wrap .ebc-qr-label{
+	margin:0 0 8px;
+	font-size:.85rem;
+	color:var(--ebc-muted);
+}
+.ebc-card-wrap .ebc-qr img{
+	max-width:200px;
+	height:auto;
+	display:block;
+	margin:0 auto;
+	border-radius:8px;
+	background:#fff;
+}
+
+/* Social icons row — at the bottom */
+.ebc-card-wrap .ebc-social-icons{
+	margin-top:22px;
+	padding-top:18px;
+	border-top:1px solid var(--ebc-card-border);
+	display:flex;
+	gap:14px;
+	justify-content:center;
+	align-items:center;
+	flex-wrap:wrap;
+}
+.ebc-card-wrap .ebc-social{
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	width:44px;
+	height:44px;
+	border-radius:50%;
+	background:#fff;
+	border:1px solid var(--ebc-card-border);
+	color:var(--ebc-text);
+	text-decoration:none !important;
+	transition:transform .15s ease, box-shadow .2s ease, border-color .2s ease;
+	box-shadow:0 1px 0 rgba(15,23,42,.04);
+	overflow:hidden;
+}
+.ebc-card-wrap .ebc-social:hover{
+	transform:translateY(-2px);
+	box-shadow:0 8px 18px rgba(15,23,42,.12);
+	border-color:transparent;
+}
+.ebc-card-wrap .ebc-social-svg{
+	width:24px;
+	height:24px;
+	display:block;
+}
+.ebc-card-wrap .ebc-social-linkedin .ebc-social-svg{width:26px;height:26px;}
+.ebc-card-wrap .ebc-social-instagram .ebc-social-svg{width:26px;height:26px;}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce){
+	.ebc-card-wrap .ebc-btn,
+	body.ebc-clean-page .ebc-btn,
+	.ebc-card-wrap .ebc-social{
+		transition:none;
+	}
+	.ebc-card-wrap .ebc-btn:hover,
+	body.ebc-clean-page .ebc-btn:hover,
+	.ebc-card-wrap .ebc-social:hover{
+		transform:none;
+	}
+}
+
+/* Grid (directory) */
+.ebc-card-grid{display:grid;gap:16px;margin:24px 0;}
+.ebc-card-grid.columns-1{grid-template-columns:1fr;}
+.ebc-card-grid.columns-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+.ebc-card-grid.columns-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+.ebc-card-grid.columns-4{grid-template-columns:repeat(4,minmax(0,1fr));}
+.ebc-grid-item{
+	border:1px solid var(--ebc-card-border);
+	border-radius:18px;
+	padding:18px;
+	background:#fff;
+	text-align:center;
+	box-shadow:0 4px 14px rgba(15,23,42,.05);
+}
+.ebc-grid-photo img{
+	width:84px;height:84px;
+	object-fit:cover;
+	border-radius:50%;
+	margin-bottom:10px;
+	box-shadow:0 0 0 3px #fff, 0 0 0 4px var(--ebc-primary-strong);
+}
+.ebc-grid-item h3{margin:6px 0 4px;font-size:1.05rem;}
+.ebc-grid-job,.ebc-grid-company{margin:3px 0;color:var(--ebc-muted);font-size:.88rem;}
+
+@media (max-width:900px){
+	.ebc-card-grid.columns-3,.ebc-card-grid.columns-4{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:640px){
+	.ebc-card-wrap{padding:0 12px;}
+	.ebc-card-wrap .ebc-card{padding:22px 18px 20px;}
+	.ebc-card-wrap .ebc-name{font-size:1.45rem;}
+	.ebc-card-wrap .ebc-avatar,
+	.ebc-card-wrap .ebc-avatar img{width:112px;height:112px;}
+	.ebc-card-grid.columns-2,.ebc-card-grid.columns-3,.ebc-card-grid.columns-4{grid-template-columns:1fr;}
+}
+@media (max-width:380px){
+	.ebc-card-wrap .ebc-actions{grid-template-columns:1fr;}
+}
