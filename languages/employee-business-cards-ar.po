@@ -46,6 +46,12 @@ msgstr "انسخ هذا الرابط:"
 msgid "Share Card"
 msgstr "مشاركة البطاقة"
 
+msgid "Share"
+msgstr "مشاركة"
+
+msgid "QR"
+msgstr "رمز QR"
+
 msgid "Show QR"
 msgstr "إظهار رمز QR"
 

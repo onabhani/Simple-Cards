@@ -46,12 +46,6 @@ $qr_url    = ebc_get_qr_url( $card_url );
 $settings = ebc_get_settings();
 $template = $settings['design_template'] ?? 'v1';
 
-$svg_kses = array(
-	'svg'  => array( 'class' => true, 'xmlns' => true, 'viewbox' => true, 'width' => true, 'height' => true, 'fill' => true, 'role' => true, 'aria-label' => true, 'aria-hidden' => true, 'focusable' => true ),
-	'path' => array( 'd' => true, 'fill' => true, 'fill-rule' => true, 'stroke' => true, 'stroke-width' => true, 'stroke-linecap' => true, 'stroke-linejoin' => true ),
-	'img'  => array( 'src' => true, 'class' => true, 'alt' => true, 'width' => true, 'height' => true, 'loading' => true, 'decoding' => true ),
-);
-
 $has_socials = $linkedin || $twitter || $instagram;
 ?>
 <div class="ebc-card-wrap">
@@ -78,7 +72,7 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<div class="ebc-actions">
 				<?php if ( $whatsapp ) : ?>
 					<a class="ebc-btn-row" href="https://wa.me/<?php echo esc_attr( preg_replace( '/[^0-9]/', '', $whatsapp ) ); ?>" target="_blank" rel="noopener noreferrer">
-						<div class="left"><span class="icon whatsapp"><i class="fab fa-whatsapp"></i></span> WhatsApp</div>
+						<div class="left"><span class="icon whatsapp"><i class="fab fa-whatsapp"></i></span> <?php echo esc_html__( 'WhatsApp', 'employee-business-cards' ); ?></div>
 						<span class="arrow"><i class="fas fa-chevron-left"></i></span>
 					</a>
 				<?php endif; ?>
@@ -180,7 +174,7 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<div class="ebc-actions">
 				<?php if ( $whatsapp ) : ?>
 					<a class="ebc-btn-outline" href="https://wa.me/<?php echo esc_attr( preg_replace( '/[^0-9]/', '', $whatsapp ) ); ?>" target="_blank" rel="noopener noreferrer">
-						<i class="fab fa-whatsapp"></i> WhatsApp
+						<i class="fab fa-whatsapp"></i> <?php echo esc_html__( 'WhatsApp', 'employee-business-cards' ); ?>
 					</a>
 				<?php endif; ?>
 				<?php if ( $phone ) : ?>
