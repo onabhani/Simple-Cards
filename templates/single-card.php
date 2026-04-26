@@ -72,26 +72,26 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<div class="ebc-actions">
 				<?php if ( $whatsapp ) : ?>
 					<a class="ebc-btn-row" href="https://wa.me/<?php echo esc_attr( preg_replace( '/[^0-9]/', '', $whatsapp ) ); ?>" target="_blank" rel="noopener noreferrer">
-						<div class="left"><span class="icon whatsapp"><i class="fab fa-whatsapp"></i></span> <?php echo esc_html__( 'WhatsApp', 'employee-business-cards' ); ?></div>
-						<span class="arrow"><i class="fas fa-chevron-left"></i></span>
+						<div class="left"><span class="icon whatsapp"><?php echo ebc_get_icon_svg( 'whatsapp' ); ?></span> <?php echo esc_html__( 'WhatsApp', 'employee-business-cards' ); ?></div>
+						<span class="arrow"><?php echo ebc_get_icon_svg( 'chevron-left' ); ?></span>
 					</a>
 				<?php endif; ?>
 				<?php if ( $phone ) : ?>
 					<a class="ebc-btn-row" href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>">
-						<div class="left"><span class="icon"><i class="fas fa-phone"></i></span> <?php echo esc_html__( 'Phone', 'employee-business-cards' ); ?></div>
-						<span class="arrow"><i class="fas fa-chevron-left"></i></span>
+						<div class="left"><span class="icon"><?php echo ebc_get_icon_svg( 'phone' ); ?></span> <?php echo esc_html__( 'Phone', 'employee-business-cards' ); ?></div>
+						<span class="arrow"><?php echo ebc_get_icon_svg( 'chevron-left' ); ?></span>
 					</a>
 				<?php endif; ?>
 				<?php if ( $website || $email ) : ?>
 				<div class="ebc-actions-grid">
 					<?php if ( $website ) : ?>
 						<a class="ebc-btn-grid" href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener noreferrer">
-							<span class="icon"><i class="fas fa-globe"></i></span> <?php echo esc_html__( 'Website', 'employee-business-cards' ); ?>
+							<span class="icon"><?php echo ebc_get_icon_svg( 'website' ); ?></span> <?php echo esc_html__( 'Website', 'employee-business-cards' ); ?>
 						</a>
 					<?php endif; ?>
 					<?php if ( $email ) : ?>
 						<a class="ebc-btn-grid" href="mailto:<?php echo esc_attr( sanitize_email( $email ) ); ?>">
-							<span class="icon"><i class="far fa-envelope"></i></span> <?php echo esc_html__( 'Email', 'employee-business-cards' ); ?>
+							<span class="icon"><?php echo ebc_get_icon_svg( 'email' ); ?></span> <?php echo esc_html__( 'Email', 'employee-business-cards' ); ?>
 						</a>
 					<?php endif; ?>
 				</div>
@@ -101,7 +101,7 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<?php if ( $location || $bio ) : ?>
 			<div class="ebc-location-bio">
 				<?php if ( $location ) : ?>
-					<div class="ebc-location"><i class="fas fa-map-marker-alt"></i> <?php echo esc_html( $location ); ?></div>
+					<div class="ebc-location"><?php echo ebc_get_icon_svg( 'map-marker' ); ?> <?php echo esc_html( $location ); ?></div>
 				<?php endif; ?>
 				<?php if ( $bio ) : ?>
 					<div class="ebc-bio"><?php echo wp_kses_post( wpautop( $bio ) ); ?></div>
@@ -110,17 +110,17 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<?php endif; ?>
 
 			<a class="ebc-primary-btn" href="<?php echo esc_url( $vcard_url ); ?>">
-				<i class="fas fa-download"></i> <?php echo esc_html__( 'Save Contact', 'employee-business-cards' ); ?>
+				<?php echo ebc_get_icon_svg( 'download' ); ?> <?php echo esc_html__( 'Save Contact', 'employee-business-cards' ); ?>
 			</a>
 
 			<div class="ebc-secondary-actions">
 				<button class="ebc-btn-text ebc-share-btn" type="button" data-ebc-share-url="<?php echo esc_attr( $card_url ); ?>" data-ebc-share-prompt="<?php echo esc_attr__( 'Copy this URL:', 'employee-business-cards' ); ?>">
-					<i class="fas fa-share"></i> <?php echo esc_html__( 'Share', 'employee-business-cards' ); ?>
+					<?php echo ebc_get_icon_svg( 'share' ); ?> <?php echo esc_html__( 'Share', 'employee-business-cards' ); ?>
 				</button>
 				<?php if ( $qr_url ) : ?>
 					<span class="separator">|</span>
 					<button class="ebc-btn-text ebc-qr-toggle" type="button" aria-expanded="false" aria-controls="ebc-qr-<?php echo esc_attr( (string) $post_id ); ?>">
-						<i class="fas fa-qrcode"></i> <span data-show-label="<?php echo esc_attr__( 'QR', 'employee-business-cards' ); ?>" data-hide-label="<?php echo esc_attr__( 'Hide QR', 'employee-business-cards' ); ?>"><?php echo esc_html__( 'QR', 'employee-business-cards' ); ?></span>
+						<?php echo ebc_get_icon_svg( 'qr' ); ?> <span data-show-label="<?php echo esc_attr__( 'QR', 'employee-business-cards' ); ?>" data-hide-label="<?php echo esc_attr__( 'Hide QR', 'employee-business-cards' ); ?>"><?php echo esc_html__( 'QR', 'employee-business-cards' ); ?></span>
 					</button>
 				<?php endif; ?>
 			</div>
@@ -135,13 +135,13 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<?php if ( $has_socials ) : ?>
 				<div class="ebc-socials">
 					<?php if ( $instagram ) : ?>
-						<a class="ebc-social-icon" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+						<a class="ebc-social-icon" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer"><?php echo ebc_get_icon_svg( 'instagram' ); ?></a>
 					<?php endif; ?>
 					<?php if ( $twitter ) : ?>
-						<a class="ebc-social-icon" href="<?php echo esc_url( $twitter ); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a>
+						<a class="ebc-social-icon" href="<?php echo esc_url( $twitter ); ?>" target="_blank" rel="noopener noreferrer"><?php echo ebc_get_icon_svg( 'twitter' ); ?></a>
 					<?php endif; ?>
 					<?php if ( $linkedin ) : ?>
-						<a class="ebc-social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+						<a class="ebc-social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer"><?php echo ebc_get_icon_svg( 'linkedin' ); ?></a>
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>
@@ -174,22 +174,22 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<div class="ebc-actions">
 				<?php if ( $whatsapp ) : ?>
 					<a class="ebc-btn-outline" href="https://wa.me/<?php echo esc_attr( preg_replace( '/[^0-9]/', '', $whatsapp ) ); ?>" target="_blank" rel="noopener noreferrer">
-						<i class="fab fa-whatsapp"></i> <?php echo esc_html__( 'WhatsApp', 'employee-business-cards' ); ?>
+						<?php echo ebc_get_icon_svg( 'whatsapp' ); ?> <?php echo esc_html__( 'WhatsApp', 'employee-business-cards' ); ?>
 					</a>
 				<?php endif; ?>
 				<?php if ( $phone ) : ?>
 					<a class="ebc-btn-outline" href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ); ?>">
-						<i class="fas fa-phone"></i> <?php echo esc_html__( 'Phone', 'employee-business-cards' ); ?>
+						<?php echo ebc_get_icon_svg( 'phone' ); ?> <?php echo esc_html__( 'Phone', 'employee-business-cards' ); ?>
 					</a>
 				<?php endif; ?>
 				<?php if ( $website ) : ?>
 					<a class="ebc-btn-outline" href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener noreferrer">
-						<i class="fas fa-globe"></i> <?php echo esc_html__( 'Website', 'employee-business-cards' ); ?>
+						<?php echo ebc_get_icon_svg( 'website' ); ?> <?php echo esc_html__( 'Website', 'employee-business-cards' ); ?>
 					</a>
 				<?php endif; ?>
 				<?php if ( $email ) : ?>
 					<a class="ebc-btn-outline" href="mailto:<?php echo esc_attr( sanitize_email( $email ) ); ?>">
-						<i class="far fa-envelope"></i> <?php echo esc_html__( 'Email', 'employee-business-cards' ); ?>
+						<?php echo ebc_get_icon_svg( 'email' ); ?> <?php echo esc_html__( 'Email', 'employee-business-cards' ); ?>
 					</a>
 				<?php endif; ?>
 			</div>
@@ -197,7 +197,7 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<?php if ( $location || $bio ) : ?>
 			<div class="ebc-location-bio">
 				<?php if ( $location ) : ?>
-					<div class="ebc-location"><i class="fas fa-map-marker-alt"></i> <?php echo esc_html( $location ); ?></div>
+					<div class="ebc-location"><?php echo ebc_get_icon_svg( 'map-marker' ); ?> <?php echo esc_html( $location ); ?></div>
 				<?php endif; ?>
 				<?php if ( $bio ) : ?>
 					<div class="ebc-bio"><?php echo wp_kses_post( wpautop( $bio ) ); ?></div>
@@ -206,16 +206,16 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<?php endif; ?>
 
 			<a class="ebc-primary-btn" href="<?php echo esc_url( $vcard_url ); ?>">
-				<i class="fas fa-download"></i> <?php echo esc_html__( 'Save Contact', 'employee-business-cards' ); ?>
+				<?php echo ebc_get_icon_svg( 'download' ); ?> <?php echo esc_html__( 'Save Contact', 'employee-business-cards' ); ?>
 			</a>
 
 			<div class="ebc-secondary-actions">
 				<button class="ebc-btn-secondary ebc-share-btn" type="button" data-ebc-share-url="<?php echo esc_attr( $card_url ); ?>" data-ebc-share-prompt="<?php echo esc_attr__( 'Copy this URL:', 'employee-business-cards' ); ?>">
-					<i class="fas fa-share"></i> <?php echo esc_html__( 'Share Card', 'employee-business-cards' ); ?>
+					<?php echo ebc_get_icon_svg( 'share' ); ?> <?php echo esc_html__( 'Share Card', 'employee-business-cards' ); ?>
 				</button>
 				<?php if ( $qr_url ) : ?>
 					<button class="ebc-btn-tertiary ebc-qr-toggle" type="button" aria-expanded="false" aria-controls="ebc-qr-<?php echo esc_attr( (string) $post_id ); ?>">
-						<i class="fas fa-qrcode"></i> <span data-show-label="<?php echo esc_attr__( 'Show QR', 'employee-business-cards' ); ?>" data-hide-label="<?php echo esc_attr__( 'Hide QR', 'employee-business-cards' ); ?>"><?php echo esc_html__( 'Show QR', 'employee-business-cards' ); ?></span>
+						<?php echo ebc_get_icon_svg( 'qr' ); ?> <span data-show-label="<?php echo esc_attr__( 'Show QR', 'employee-business-cards' ); ?>" data-hide-label="<?php echo esc_attr__( 'Hide QR', 'employee-business-cards' ); ?>"><?php echo esc_html__( 'Show QR', 'employee-business-cards' ); ?></span>
 					</button>
 				<?php endif; ?>
 			</div>
@@ -230,13 +230,13 @@ $has_socials = $linkedin || $twitter || $instagram;
 			<?php if ( $has_socials ) : ?>
 				<div class="ebc-socials">
 					<?php if ( $instagram ) : ?>
-						<a class="ebc-social-icon" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+						<a class="ebc-social-icon" href="<?php echo esc_url( $instagram ); ?>" target="_blank" rel="noopener noreferrer"><?php echo ebc_get_icon_svg( 'instagram' ); ?></a>
 					<?php endif; ?>
 					<?php if ( $twitter ) : ?>
-						<a class="ebc-social-icon" href="<?php echo esc_url( $twitter ); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a>
+						<a class="ebc-social-icon" href="<?php echo esc_url( $twitter ); ?>" target="_blank" rel="noopener noreferrer"><?php echo ebc_get_icon_svg( 'twitter' ); ?></a>
 					<?php endif; ?>
 					<?php if ( $linkedin ) : ?>
-						<a class="ebc-social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+						<a class="ebc-social-icon" href="<?php echo esc_url( $linkedin ); ?>" target="_blank" rel="noopener noreferrer"><?php echo ebc_get_icon_svg( 'linkedin' ); ?></a>
 					<?php endif; ?>
 				</div>
 			<?php endif; ?>

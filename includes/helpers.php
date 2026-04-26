@@ -334,6 +334,9 @@ function ebc_get_icon_svg( string $name, array $attrs = array() ): string {
 		'share'     => '<path d="M14 9V5l7 7-7 7v-4.1c-5 0-8.5 1.6-11 5.1 1-5 4-10 11-11Z" fill="currentColor"/>',
 		'download'  => '<path d="M12 3a1 1 0 0 1 1 1v9.59l3.3-3.3a1 1 0 1 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 1 1 1.4-1.42L11 13.6V4a1 1 0 0 1 1-1ZM4 19a1 1 0 0 1 1-1h14a1 1 0 1 1 0 2H5a1 1 0 0 1-1-1Z" fill="currentColor"/>',
 		'close'     => '<path d="M6.4 5 5 6.4 10.6 12 5 17.6 6.4 19 12 13.4 17.6 19 19 17.6 13.4 12 19 6.4 17.6 5 12 10.6 6.4 5Z" fill="currentColor"/>',
+		'chevron-left'  => '<path d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12Z" fill="currentColor"/>',
+		'chevron-right' => '<path d="M8.6 7.4 10 6l6 6-6 6-1.4-1.4L13.2 12Z" fill="currentColor"/>',
+		'map-marker'    => '<path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5Z" fill="currentColor"/>',
 		);
 	}
 

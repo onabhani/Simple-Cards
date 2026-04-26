@@ -40,6 +40,27 @@ body.ebc-clean-page .ebc-card-wrap { margin: 0 auto; }
     direction: rtl;
 }
 
+/* Inline SVG icons inherit current text color and scale with parent font-size */
+.ebc-card .ebc-icon {
+	width: 1em;
+	height: 1em;
+	vertical-align: -0.125em;
+	display: inline-block;
+	fill: currentColor;
+	flex-shrink: 0;
+}
+/* Brand icons (linkedin / twitter / instagram) ship as <img>; size them
+   to match the surrounding font and keep their bundled brand colors. */
+.ebc-card .ebc-social-icon .ebc-icon {
+	width: 1.25em;
+	height: 1.25em;
+}
+.ebc-card .ebc-btn-row .icon .ebc-icon,
+.ebc-card .ebc-btn-grid .icon .ebc-icon {
+	width: 1.25rem;
+	height: 1.25rem;
+}
+
 /* Version 1 Styles */
 .ebc-card.v1 .ebc-header {
 	background-color: var(--ebc-orange);
